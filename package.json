@@ -1,0 +1,29 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@salutejs/client": "^1.16.2",
+    "@salutejs/recognizer-smartapp-brain": "^0.33.3",
+    "@salutejs/scenario": "^0.33.3",
+    "@salutejs/storage-adapter-memory": "^0.33.3",
+    "@types/node": "18.15.13",
+    "@types/react": "18.0.38",
+    "@types/react-dom": "18.0.11",
+    "buffer": "^6.0.3",
+    "dotenv": "^16.0.3",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.1",
+    "lossless-json": "^2.0.8",
+    "next": "13.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.0.4"
+  }
+}
