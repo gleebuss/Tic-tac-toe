@@ -112,18 +112,18 @@ export default function Home() {
                     break;
             }
 
-            if (navigation) {
-                switch (navigation.command) {
-                    case 'UP':
-                        window.scrollTo(0, window.scrollY - 500);
-                        break;
-                    case 'DOWN':
-                        window.scrollTo(0, window.scrollY + 500);
-                        break;
-                    default:
-                        break;
-                }
-            }
+            // if (navigation) {
+            //     switch (navigation.command) {
+            //         case 'UP':
+            //             window.scrollTo(0, window.scrollY - 500);
+            //             break;
+            //         case 'DOWN':
+            //             window.scrollTo(0, window.scrollY + 500);
+            //             break;
+            //         default:
+            //             break;
+            //     }
+            // }
         });
 
         assistantRef.current = assistant;
