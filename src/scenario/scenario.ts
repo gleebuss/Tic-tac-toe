@@ -18,10 +18,6 @@ import model from '../intents.json';
 const { match, intent, text, state, regexp } = createMatchers<SaluteRequest>();
 
 const userScenario = createUserScenario({
-    Test: {
-        match: match(intent('/sum'),),
-        handle: test,
-    },
     chooseSide: {
         match: regexp(/^(?:Я буду играть за )?(?<side>крестики|нолики)$/i, { normalized: false }),
         handle: chooseSide,
