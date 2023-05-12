@@ -32,8 +32,9 @@ export default function Home() {
     }, [next]);
 
     useEffect(() => {
-        if (winner || board.every((square:any) => square !== null)) {
+        if (winner !== null || board.every((square:any) => square !== null)) {
             dispatch({ type: 'STATUS', flag: true });
+            assistantRef.current?.sendAction({type:'winner', payload: {winner: winner, user: playerSide}});
         }
     }, [winner]);
 
@@ -88,9 +89,10 @@ export default function Home() {
                 token: NEXT_PUBLIC_DEV_TOKEN,
                 initPhrase: NEXT_PUBLIC_DEV_PHRASE,
                 getState: () => assistantStateRef.current,
+                nativePanel:{
+                    screenshotMode: false
+                }
             });
-
-            
         };
 
         const assistant = initializeAssistant();
@@ -106,26 +108,18 @@ export default function Home() {
                     navigation = (command as AssistantNavigationCommand).navigation;
                     break;
                 case 'smart_app_data':
-                    dispatch(command.smart_app_data);
+                    console.log(command.smart_app_data)
+                    if(command.smart_app_data.type === 'CHOOSE_SIDE' && (playerSide === null && botSide === null)) {
+                        assistant.sendAction({type: 'side', payload:{choice: command.smart_app_data.payload?.choice }})
+                        dispatch(command.smart_app_data)
+                    }
+                    else{
+                        dispatch(command.smart_app_data)
+                    }
                     break;
                 default:
                     break;
-            }
-
-            // if (navigation) {
-            //     switch (navigation.command) {
-            //         case 'UP':
-            //             window.scrollTo(0, window.scrollY - 500);
-            //             break;
-            //         case 'DOWN':
-            //             window.scrollTo(0, window.scrollY + 500);
-            //             break;
-            //         default:
-            //             break;
-            //     }
-            // }
-        });
-
+        }});
         assistantRef.current = assistant;
     }, []);
 

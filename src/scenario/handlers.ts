@@ -16,25 +16,42 @@ export const closeAppHander: SaluteHandler = ({ res }) => {
     res.setPronounceText('Спасибо за игру');
 };
 
-export const test: SaluteHandler<SaluteRequest> = ({ req, res }) => {
-    const {num1, num2} = req.variables
-    const ans = Number(num1) + Number(num2)
-    res.setPronounceText(`Ответ ${ans}`);
+export const winner: SaluteHandler<SaluteRequest> = ({ req, res }) => {
+    const {winner, user} = req.variables;
+
+    if (winner === user) {
+        res.setEmotion("pechal")
+        res.setPronounceText(`Вы победили`);
+        res.appendBubble('Вы победили')
+    }
+    else {
+        res.setEmotion("pechal")
+        res.setPronounceText(`Вы проиграли`)
+        res.appendBubble('Вы проиграли')
+    }
+};
+
+export const side: SaluteHandler<SaluteRequest> = ({ req, res }) => {
+    const {choice} = req.variables;
+    if (choice === 'true') {
+        res.appendBubble("Я тогда за нолики")
+        res.setPronounceText("Я тогда за нолики")
+    }
+    else{
+        res.appendBubble("Я тогда за крестики")
+        res.setPronounceText("Я тогда за крестики")
+    }
 };
 
 export const chooseSide: SaluteHandler<SaluteRequest> = ({ req, res}) => {
     const {side} = req.variables
     const ans = String(side).toLocaleLowerCase()
     if (ans === 'крестики'){
-        res.setPronounceText('Я тогда буду за нолики')
         res.appendCommand({type: 'CHOOSE_SIDE', choice: true})
     }
     else if (ans === 'нолики'){
-        res.setPronounceText('Я тогда буду за крестики')
         res.appendCommand({type: 'CHOOSE_SIDE', choice: false})
     }
-
-    res.appendBubble("Скажите цифру, куда хотите сходить")
 };
 
 export const move: SaluteHandler<SaluteRequest> = ({ req, res }) => {

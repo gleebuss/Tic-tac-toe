@@ -12,10 +12,10 @@ import {
 } from '@salutejs/scenario';
 import { SaluteMemoryStorage } from '@salutejs/storage-adapter-memory';
 import { SmartAppBrainRecognizer } from '@salutejs/recognizer-smartapp-brain';
-import { runAppHandler, closeAppHander, noMatchHandler, test, chooseSide, move, restart } from './handlers'
+import { runAppHandler, closeAppHander, noMatchHandler, winner, chooseSide, move, restart, side } from './handlers'
 import model from '../intents.json';
 
-const { match, intent, text, state, regexp } = createMatchers<SaluteRequest>();
+const {regexp, action} = createMatchers<SaluteRequest>();
 
 const userScenario = createUserScenario({
     chooseSide: {
@@ -29,7 +29,11 @@ const userScenario = createUserScenario({
     restart: {
         match: regexp(/^Заново$/i),
         handle: restart,
-    }
+    },
+    winner:{
+        match: action('winner'),
+        handle: winner
+    },
 });
 
 const scenarioWalker = createScenarioWalker({
