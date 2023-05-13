@@ -65,7 +65,9 @@ export function reducer(state: any, action: any) {
                 playing: false
             }
         default:
-            throw new Error(`Invalid action type: ${action.type}`);
+            return {
+                ...state,
+            };
     }
 }
 

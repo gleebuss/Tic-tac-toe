@@ -22,11 +22,11 @@
 .button-container button {
   background-color: #7bc043;
   color: white; 
-  padding: 10px 20px; 
+  padding: 10px 10px; 
   width: 40%;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 13px;
   cursor: pointer;
   background-image: linear-gradient(to right, #7bc043, #5cb85c);
 }

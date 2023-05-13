@@ -41,6 +41,8 @@ export default function Home() {
     useEffect(() => {
         if (botSide !== null && playerSide !== null) {
             dispatch({ type: 'SIDEMENU', flag: false });
+            assistantRef.current?.sendAction({type: 'side', payload:{choice: playerSide === 'X' ? true : false}})
+
         }
     }, [botSide, playerSide]);
 
@@ -87,17 +89,21 @@ export default function Home() {
                 throw new Error('');
             }
 
-            return createSmartappDebugger({
-                token: NEXT_PUBLIC_DEV_TOKEN,
-                initPhrase: NEXT_PUBLIC_DEV_PHRASE,
+            // return createSmartappDebugger({
+            //     token: NEXT_PUBLIC_DEV_TOKEN,
+            //     initPhrase: NEXT_PUBLIC_DEV_PHRASE,
+            //     getState: () => assistantStateRef.current,
+            //     nativePanel: {
+            //         defaultText: 'Покажи что-нибудь',
+            //         // Позволяет включить вид панели, максимально приближенный к панели на реальном устройстве
+            //         screenshotMode: false,
+            //         // Атрибут `tabindex` поля ввода пользовательского запроса
+            //         tabIndex: -1,
+            //     },
+            // });
+
+            return createAssistant({
                 getState: () => assistantStateRef.current,
-                nativePanel: {
-                    defaultText: 'Покажи что-нибудь',
-                    // Позволяет включить вид панели, максимально приближенный к панели на реальном устройстве
-                    screenshotMode: false,
-                    // Атрибут `tabindex` поля ввода пользовательского запроса
-                    tabIndex: -1,
-                },
             });
         };
 
@@ -114,9 +120,6 @@ export default function Home() {
                     navigation = (command as AssistantNavigationCommand).navigation;
                     break;
                 case 'smart_app_data':
-                    if(command.smart_app_data.type === 'CHOOSE_SIDE' && next === null) {
-                        assistant.sendAction({type: 'side', payload:{choice: command.smart_app_data.payload?.choice }})
-                    }
                     dispatch(command.smart_app_data)
                     break;
                 default:
@@ -132,8 +135,8 @@ export default function Home() {
                 {isStatusOpen && <Status handleReset={handleReset} winner={winner} />}
                 <Board board={board} handlePlay={handlePlay} />
                 <div className={styles['button-container']}>
-                    <button onClick={handleReset}>Reset</button>
-                    <button>Help</button>
+                    <button onClick={handleReset}>Новая игра</button>
+                    <button>Помощь</button>
                 </div>
             </div>
         </div>

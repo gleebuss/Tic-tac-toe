@@ -44,12 +44,12 @@ export const winner: SaluteHandler<SaluteRequest> = ({ req, res }) => {
 export const side: SaluteHandler<SaluteRequest> = ({ req, res }) => {
     const { choice } = req.variables;
     if (String(choice) === 'true') {
-        res.appendBubble("Я тогда за нолики")
-        res.setPronounceText("Я тогда за нолики")
+        res.appendBubble("Я тогда за нолики.")
+        res.setPronounceText("Я тогда за нолики. Назовите номер клетки, на которую хотите сходить")
     }
     else {
-        res.appendBubble("Я тогда за крестики")
-        res.setPronounceText("Я тогда за крестики")
+        res.appendBubble("Я тогда за крестики.")
+        res.setPronounceText("Я тогда за крестики. Назовите номер клетки, на которую хотите сходить")
     }
 };
 
