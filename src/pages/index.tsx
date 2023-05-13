@@ -55,7 +55,7 @@ export default function Home() {
 
 
     function handleReset() {
-        dispatch({ type: 'RESET' });
+        assistantRef.current?.sendAction({type: 'button_restart'})
     }
 
     function handlePlay(index:any) {
@@ -63,7 +63,9 @@ export default function Home() {
     }
 
     function chooseSide(choice:any) {
-        dispatch({ type: 'CHOOSE_SIDE', choice: choice })
+        assistantRef.current?.sendAction({type: 'button_chooseSide', payload:{
+            choice:choice
+        }})
     }
 
     function handleModalClose() {
@@ -89,9 +91,13 @@ export default function Home() {
                 token: NEXT_PUBLIC_DEV_TOKEN,
                 initPhrase: NEXT_PUBLIC_DEV_PHRASE,
                 getState: () => assistantStateRef.current,
-                nativePanel:{
-                    screenshotMode: false
-                }
+                nativePanel: {
+                    defaultText: 'Покажи что-нибудь',
+                    // Позволяет включить вид панели, максимально приближенный к панели на реальном устройстве
+                    screenshotMode: false,
+                    // Атрибут `tabindex` поля ввода пользовательского запроса
+                    tabIndex: -1,
+                },
             });
         };
 
@@ -108,14 +114,10 @@ export default function Home() {
                     navigation = (command as AssistantNavigationCommand).navigation;
                     break;
                 case 'smart_app_data':
-                    console.log(command.smart_app_data)
-                    if(command.smart_app_data.type === 'CHOOSE_SIDE' && (playerSide === null && botSide === null)) {
+                    if(command.smart_app_data.type === 'CHOOSE_SIDE' && next === null) {
                         assistant.sendAction({type: 'side', payload:{choice: command.smart_app_data.payload?.choice }})
-                        dispatch(command.smart_app_data)
                     }
-                    else{
-                        dispatch(command.smart_app_data)
-                    }
+                    dispatch(command.smart_app_data)
                     break;
                 default:
                     break;
@@ -131,6 +133,7 @@ export default function Home() {
                 <Board board={board} handlePlay={handlePlay} />
                 <div className={styles['button-container']}>
                     <button onClick={handleReset}>Reset</button>
+                    <button>Help</button>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 .square {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border: 1px solid #475C71;
     background-color: #34495E;
 }
@@ -29,15 +29,30 @@
 
 @media (max-width: 600px) {
     .square {
-      width: 80px;
-      height: 80px;
+        width: 80px;
+        height: 80px;
     }
-  }
+}
 
 @media (max-width: 400px) {
     .square {
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 300px) {
+    .square {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+
+@media (min-height: 1000px) {
+    .square {
+        width: 150px;
+        height: 150px;
     }
 }
 
@@ -45,12 +60,5 @@
     .square {
         width: 60px;
         height: 60px;
-    }
-}
-
-@media (min-height: 1080px) {
-    .square {
-        width: 150px;
-        height: 150px;
     }
 }

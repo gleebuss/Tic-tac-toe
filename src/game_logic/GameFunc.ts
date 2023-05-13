@@ -35,8 +35,8 @@ export function reducer(state: any, action: any) {
 
         case 'CHOOSE_SIDE':
             if (state.botSide === null && state.playerSide === null) {
-                const botSide = action.choice === false ? 'X' : 'O'
-                const playerSide = action.choice === true ? 'X' : 'O'
+                const botSide = action.payload.choice === false ? 'X' : 'O'
+                const playerSide = action.payload.choice === true ? 'X' : 'O'
                 const next = botSide === 'X' ? 'BOT' : 'PLAYER'
                 return {
                     ...state,

@@ -12,7 +12,7 @@ import {
 } from '@salutejs/scenario';
 import { SaluteMemoryStorage } from '@salutejs/storage-adapter-memory';
 import { SmartAppBrainRecognizer } from '@salutejs/recognizer-smartapp-brain';
-import { runAppHandler, closeAppHander, noMatchHandler, winner, chooseSide, move, restart, side } from './handlers'
+import { runAppHandler, closeAppHander, noMatchHandler, winner, chooseSide, move, restart, side, button_chooseSide} from './handlers'
 import model from '../intents.json';
 
 const {regexp, action} = createMatchers<SaluteRequest>();
@@ -34,6 +34,19 @@ const userScenario = createUserScenario({
         match: action('winner'),
         handle: winner
     },
+    side:{
+        match: action('side'),
+        handle: side
+    },
+    button_restart:{
+        match: action('button_restart'),
+        handle: restart
+    },
+    button_chooseSide:{
+        match: action('button_chooseSide'),
+        handle: button_chooseSide,
+    }
+    
 });
 
 const scenarioWalker = createScenarioWalker({
