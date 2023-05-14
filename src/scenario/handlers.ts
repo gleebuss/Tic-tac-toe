@@ -83,7 +83,8 @@ export const parseScreen: SaluteHandler<SaluteRequest> = ({req, res}) => {
     const {screen} = req.variables
     console.log(screen)
     if (screen === 'Early') {
-        res.setPronounceText('Скажите кем будете играть')
+        res.appendSuggestions(['Крестики', 'Нолики']);
+        res.setPronounceText('Скажите кем будете играть. Крестики или нолики')
     }
     else if (screen === 'Mid') {
         res.setPronounceText('Скажите номер ячейки на которую хотите сходить')
@@ -92,4 +93,3 @@ export const parseScreen: SaluteHandler<SaluteRequest> = ({req, res}) => {
         res.setPronounceText('Скажите заново и игра начнется сначала')
     }
 }
-
