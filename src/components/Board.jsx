@@ -9,7 +9,7 @@ export default function Board({ board, handlePlay }) {
 
     for (let j = 0; j < 5; j++) {
       const index = i * 5 + j;
-      squares.push(<Square index={index} value={board[index]} handlePlay={() => handlePlay(index)} />);
+      squares.push(<Square key={index} index={index} value={board[index]} handlePlay={() => handlePlay(index)} />);
     }
 
     rows.push(<div className={styles['board-row']}>{squares}</div>);

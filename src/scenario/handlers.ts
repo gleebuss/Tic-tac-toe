@@ -1,15 +1,13 @@
-import { createMatchers, SaluteHandler, SaluteRequest } from '@salutejs/scenario';
+import { SaluteHandler, SaluteRequest } from '@salutejs/scenario';
 
 
 export const runAppHandler: SaluteHandler = ({ req, res, session, history }) => {
     res.setPronounceText('Сегодня мы с вами сыграем в крестики нолики. За кого Вы будете играть?');
     res.appendSuggestions(['Крестики', 'Нолики']);
-    // start({req, res, session, history});
 };
 
-export const noMatchHandler: SaluteHandler = ({ req, res }) => {
-    res.setPronounceText('Я не понимаю');
-    res.appendBubble('Я не понимаю');
+export const noMatchHandler: SaluteHandler<SaluteRequest> = ({ req, res }) => {
+    res.appendCommand({type: 'help'})
 };
 
 export const closeAppHander: SaluteHandler = ({ req, res }) => {
@@ -80,4 +78,18 @@ export const restart: SaluteHandler<SaluteRequest> = ({ req, res }) => {
     res.appendSuggestions(['Крестики', 'Нолики']);
     res.setPronounceText('За кого Вы будете играть?')
 };
+
+export const parseScreen: SaluteHandler<SaluteRequest> = ({req, res}) => {
+    const {screen} = req.variables
+    console.log(screen)
+    if (screen === 'Early') {
+        res.setPronounceText('Скажите кем будете играть')
+    }
+    else if (screen === 'Mid') {
+        res.setPronounceText('Скажите номер ячейки на которую хотите сходить')
+    }
+    else {
+        res.setPronounceText('Скажите заново и игра начнется сначала')
+    }
+}
 

@@ -7,69 +7,68 @@ export const initialState = {
     isSideMenuOpen: true,
     isStatusOpen: false,
     audio: null,
-    playing: null
+    playing: null,
+    screen: 'Early'
 };
 
-export function reducer(state: any, action: any) {
-    switch (action.type) {
-        case 'RESET':
-            state.audio.pause();
-            return initialState;
-        case 'PLAY':
-            if (state.board[action.index] || state.winner) {
-                return {
-                    ...state
-                }
-            }
-            else {
-                const newBoard = [...state.board];
-                newBoard[action.index] = state.next === 'PLAYER' ? state.playerSide : state.botSide;
-                const winner = calculateWinner(newBoard);
-                return {
-                    ...state,
-                    board: newBoard,
-                    next: state.next === 'PLAYER' ? 'BOT' : 'PLAYER',
-                    winner: winner,
-                };
-            }
-
-        case 'CHOOSE_SIDE':
-            if (state.botSide === null && state.playerSide === null) {
-                const botSide = action.payload.choice === false ? 'X' : 'O'
-                const playerSide = action.payload.choice === true ? 'X' : 'O'
-                const next = botSide === 'X' ? 'BOT' : 'PLAYER'
-                return {
-                    ...state,
-                    botSide: botSide,
-                    playerSide: playerSide,
-                    next: next,
-                    audio: new Audio('/asia.mp3'),
-                    playing: true
-                };
-            }
-            else {
-                return {
-                    ...state,
-                };
-            }
-
-        case 'SIDEMENU':
-            return {
-                ...state,
-                isSideMenuOpen: action.flag
-            }
-        case 'STATUS':
-            return {
-                ...state,
-                isStatusOpen: action.flag,
-                playing: false
-            }
-        default:
-            return {
-                ...state,
-            };
-    }
-}
+// export function reducer(state: any, action: any) {
+//     switch (action.type) {
+//         case 'RESET':
+//             state.audio?.pause();
+//             return initialState;
+//         case 'PLAY':
+//             if (state.board[action.index] || state.winner) {
+//                 return {
+//                     ...state
+//                 }
+//             }
+//             else {
+//                 const newBoard = [...state.board];
+//                 newBoard[action.index] = state.next === 'PLAYER' ? state.playerSide : state.botSide;
+//                 const winner = calculateWinner(newBoard);
+//                 return {
+//                     ...state,
+//                     board: newBoard,
+//                     next: state.next === 'PLAYER' ? 'BOT' : 'PLAYER',
+//                     winner: winner,
+//                 };
+//             }
+//         case 'CHOOSE_SIDE':
+//             if (state.botSide === null && state.playerSide === null) {
+//                 const botSide = action.payload.choice === false ? 'X' : 'O'
+//                 const playerSide = action.payload.choice === true ? 'X' : 'O'
+//                 const next = botSide === 'X' ? 'BOT' : 'PLAYER'
+//                 return {
+//                     ...state,
+//                     botSide: botSide,
+//                     playerSide: playerSide,
+//                     next: next,
+//                     audio: new Audio('/asia.mp3'),
+//                     playing: true,
+//                 };
+//             }
+//             else {
+//                 return {
+//                     ...state,
+//                 };
+//             }
+//         case 'SIDEMENU':
+//             return {
+//                 ...state,
+//                 isSideMenuOpen: action.flag
+//             }
+//         case 'STATUS':
+//             return {
+//                 ...state,
+//                 isStatusOpen: action.flag,
+//                 playing: false
+//             }
+//         default:
+//             return {
+//                 ...state,
+//             }
+//     }
+// }
 
 export function calculateWinner(board: any) {
     const lines = [    // Horizontal lines
