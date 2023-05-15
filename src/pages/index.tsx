@@ -1,5 +1,5 @@
 import React from 'react'
-import { useReducer, useRef, useEffect } from 'react';
+import { useReducer, useRef, useEffect, useState } from 'react';
 import { initialState, playBotMove, calculateWinner } from '../game_logic/GameFunc.ts';
 import styles from '../styles/App.module.css';
 import Board from '../components/Board.jsx';
@@ -10,6 +10,7 @@ import {
     AssistantClientCommand,
     createAssistant,
     createSmartappDebugger,
+    CharacterId
 } from '@salutejs/client';
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 // eslint-disable-next-line prefer-destructuring
@@ -18,6 +19,7 @@ const NEXT_PUBLIC_DEV_TOKEN = process.env.NEXT_PUBLIC_DEV_TOKEN;
 const NEXT_PUBLIC_DEV_PHRASE = process.env.NEXT_PUBLIC_DEV_PHRASE;
 
 export default function Home() {
+    const [character, setCharacter] = useState('sber' as CharacterId);
     const assistantStateRef = useRef<AssistantAppState>({});
     const assistantRef = useRef<ReturnType<typeof createAssistant>>();
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -198,6 +200,9 @@ export default function Home() {
             switch (command.type) {
                 case 'smart_app_data':
                     dispatch(command.smart_app_data)
+                    break;
+                case 'character':
+                    setCharacter(command.character.id);
                     break;
                 default:
                     break;
